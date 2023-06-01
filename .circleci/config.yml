@@ -42,7 +42,7 @@ jobs:
       - run:
           name: Run Playbook and Configure server
           command: |
-            ansible-playbook -i inventory.txt main.yml
+            ansible-playbook --key-file ~/.ssh/id_rsa_f9566d26e1e4f541c2173730d01ba9d0 -i inventory.txt main.yml
 
 # Sequential workflow
 workflows:
