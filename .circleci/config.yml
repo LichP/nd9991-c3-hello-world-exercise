@@ -32,9 +32,17 @@ jobs:
           command: |
             apk add --update ansible
       - run:
+          name: Debug processes
+          command: |
+            ps fax
+      - run:
+          name: Debug ssh keys
+          command: |
+            ls -al ~/.ssh/
+      - run:
           name: Run Playbook and Configure server
           command: |
-            ansible-playbook --key-file ~/.ssh/id_rsa_f9:56:6d:26:e1:e4:f5:41:c2:17:37:30:d0:1b:a9:d0 -i inventory.txt main.yml
+            ansible-playbook -i inventory.txt main.yml
 
 # Sequential workflow
 workflows:
