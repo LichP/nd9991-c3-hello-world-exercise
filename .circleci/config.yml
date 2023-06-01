@@ -32,17 +32,26 @@ jobs:
           command: |
             apk add --update ansible
       - run:
-          name: Debug processes
-          command: |
-            ps fax
-      - run:
-          name: Debug ssh keys
-          command: |
-            cat ~/.ssh/id_rsa_f9566d26e1e4f541c2173730d01ba9d0
-      - run:
           name: Run Playbook and Configure server
           command: |
-            ansible-playbook --key-file ~/.ssh/id_rsa_f9566d26e1e4f541c2173730d01ba9d0 -i inventory.txt main.yml
+            ansible-playbook -i inventory.txt main.yml
+  # Exercise: Smoke Testing
+  smoke_test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --update curl
+      - run:
+          name: smoke test
+          command: |
+            URL="https://blog.udacity.com/"
+            # Test if website exists
+            if curl -s --head ${URL}
+            then
+              return 0
+            else
+              return 1
+            fi
 
 # Sequential workflow
 workflows:
@@ -50,4 +59,5 @@ workflows:
     myWorkflow:
       jobs:
         # - create_infrastructure
-        - configure_infrastructure
+        # - configure_infrastructure
+        - smoke_test
