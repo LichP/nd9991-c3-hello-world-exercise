@@ -120,7 +120,7 @@ jobs:
             --template-file bucket.yml \
             --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7} \
             --parameter-overrides MyBucketName="nd9991-c3-ex28-ps-${CIRCLE_WORKFLOW_ID:0:7}"
-      - run: aws s3 sync index.html s3://nd9991-c3-ex28-ps-${CIRCLE_WORKFLOW_ID:0:7} --delete
+      - run: aws s3 cp index.html s3://nd9991-c3-ex28-ps-${CIRCLE_WORKFLOW_ID:0:7}/index.html
 
 # Sequential workflow
 workflows:
